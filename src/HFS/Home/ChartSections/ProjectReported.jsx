@@ -132,17 +132,17 @@ const ProjectReported = () => {
   };
 
   const projectedReport = async () => {
-    try {
-      const res = await axios.post(`${baseurl1}real-time-minute/`, {
-        station_id: 1,
-        start_date: date_range.start_date,
-      });
-      setResDataProjected(res.data);
-      //console.log(resDataProjected);
-    } catch (error) {
-      setResDataReservoir(null);
-      console.error("Error in fetching project reported:", error);
-    }
+    // try {
+    //   const res = await axios.post(`${baseurl1}real-time-minute/`, {
+    //     station_id: 1,
+    //     start_date: date_range.start_date,
+    //   });
+    //   setResDataProjected(res.data);
+    //   //console.log(resDataProjected);
+    // } catch (error) {
+    //   setResDataProjected(null);
+    //   console.error("Error in fetching project reported:", error);
+    // }
   };
 
   useEffect(() => {
@@ -211,12 +211,12 @@ const ProjectReported = () => {
         ],
       }));
     }
-  }, [date_range, resDataReservoir]);
+  }, [date_range, resDataReservoir, resDataProjected]);
 
   return (
     <Row className="mt-3">
       <Col xl={6} className="px-0">
-        <Card className="m-0 p-0">
+        <Card className="m-0 p-0 mt-2">
           <CardHeader className="p-1">
             <p className="fs-3 fw-semibold mx-2">Projected Report</p>
           </CardHeader>
@@ -233,7 +233,7 @@ const ProjectReported = () => {
         </Card>
       </Col>
       <Col xl={6} className="px-2">
-        <Card className="m-0 p-0">
+        <Card className="m-0 p-0 md:mt-0 mt-2">
           <CardHeader className="p-1">
             <p className="fs-3 fw-semibold mx-2">Reservoir Condition</p>
           </CardHeader>

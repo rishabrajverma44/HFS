@@ -95,6 +95,13 @@ const HydrologicalInflow = () => {
             return value.toFixed(3);
           },
         },
+        title: {
+          text: "Discharge in m ³/s",
+          style: {
+            fontSize: "14px",
+            fontWeight: "bold",
+          },
+        },
       },
       tooltip: {
         x: {
@@ -161,7 +168,7 @@ const HydrologicalInflow = () => {
                 options={optionData?.options}
                 series={optionData?.series}
                 type="area"
-                height={380}
+                height={400}
               />
             ) : (
               <div

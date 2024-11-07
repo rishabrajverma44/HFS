@@ -98,7 +98,7 @@ const PowerData = () => {
   }, [date_range]);
 
   return (
-    <Row>
+    <Row className="px-2">
       <Card>
         <Row className="card-header align-items-center d-flex p-1">
           <Col>
