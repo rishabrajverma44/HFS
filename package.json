@@ -2,6 +2,7 @@
   "name": "default-velzon-thunk",
   "version": "3.0.0",
   "private": true,
+  "homepage": "https://hydropower.indevconsultancy.in",
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^40.2.0",
     "@ckeditor/ckeditor5-react": "^6.2.0",
@@ -86,6 +87,7 @@
     "react-scrollspy": "^3.4.3",
     "react-select": "^5.8.0",
     "react-shepherd": "^4.2.0",
+    "react-slideshow-image": "^4.3.2",
     "react-switch": "^7.0.0",
     "react-table": "^7.8.0",
     "react-to-print": "^3.0.2",

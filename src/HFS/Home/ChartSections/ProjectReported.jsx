@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Card, CardHeader, Col, Row } from "reactstrap";
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
+import { DataContext } from "../../../Layouts/dataContext";
+import axios from "axios";
+const baseurl1 = process.env.REACT_APP_API_BASE_URL_1;
 
 const ProjectReported = () => {
-  const optionsData = {
+  const { date_range } = useContext(DataContext);
+  const [resDataReservoir, setResDataReservoir] = useState(null);
+  const [resDataProjected, setResDataProjected] = useState(null);
+
+  const [optionsData1, setOptionData1] = useState({
     chart: {
       type: "area",
     },
@@ -65,61 +72,16 @@ const ProjectReported = () => {
     exporting: {
       enabled: false,
     },
-    series: [
-      {
-        name: "Low",
-        data: [
-          3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-          3, 3, 3, 3, 3, 3,
-        ],
-      },
-      {
-        name: "High",
-        data: [
-          2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-          2, 2, 2, 2, 2, 2,
-        ],
-      },
-      {
-        name: "medium",
-        data: [
-          2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-          2, 2, 2, 2, 2, 2,
-        ],
-      },
-      {
-        name: "Inflow",
-        type: "line",
-        data: [
-          1.3, 1.2, 1.1, 1.45, 1.44, 1.65, 1.3, 1.22, 1.44, 1.11, 1.33, 1.32,
-          1.67, 1.23, 1.345, 1.76, 1.3, 1.34, 1.4, 1.44, 1, 1.56, 1.45, 1.76,
-          1.12, 1.44, 1.12, 1.33, 1.21,
-        ],
-        marker: {
-          enabled: true,
-        },
-      },
-    ],
-  };
+  });
 
-  const optionsData2 = {
+  const [optionsData2, setOptionData2] = useState({
     chart: {
       type: "column",
     },
     title: {
       text: "",
     },
-    xAxis: {
-      categories: [
-        "01-08-2024",
-        "02-08-2024",
-        "03-08-2024",
-        "04-08-2024",
-        "05-08-2024",
-        "06-08-2024",
-        "07-08-2024",
-      ],
-    },
+
     yAxis: {
       min: 0,
       max: 100,
@@ -153,41 +115,140 @@ const ProjectReported = () => {
     exporting: {
       enabled: false,
     },
-    series: [
-      {
-        name: "TBL(top bound level)",
-        data: [50, 45, 50, 40, 55, 45, 60],
-      },
-      {
-        name: "HFL (high flood level)",
-        data: [20, 33, 24, 32, 32, 28, 20],
-      },
-      {
-        name: "FTL (full tank level)",
-        data: [30, 22, 26, 28, 13, 27, 20],
-      },
-    ],
+  });
+
+  const getData = async () => {
+    try {
+      const res = await axios.post(`${baseurl1}reservoir-Condition/`, {
+        station_id: 1,
+        start_date: date_range.start_date,
+        end_date: date_range.end_date,
+      });
+      setResDataReservoir(res.data);
+    } catch (error) {
+      setResDataReservoir(null);
+      console.error("Error in fetching project reported: resivior", error);
+    }
   };
+
+  const projectedReport = async () => {
+    try {
+      const res = await axios.post(`${baseurl1}real-time-minute/`, {
+        station_id: 1,
+        start_date: date_range.start_date,
+      });
+      setResDataProjected(res.data);
+      //console.log(resDataProjected);
+    } catch (error) {
+      setResDataReservoir(null);
+      console.error("Error in fetching project reported:", error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+    projectedReport();
+  }, [date_range]);
+
+  useEffect(() => {
+    if (resDataReservoir) {
+      setOptionData1((previousOptions) => ({
+        ...previousOptions,
+        series: [
+          {
+            name: "Low",
+            data: [
+              3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+              3, 3, 3, 3, 3, 3, 3,
+            ],
+          },
+          {
+            name: "High",
+            data: [
+              2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+              2, 2, 2, 2, 2, 2, 2,
+            ],
+          },
+          {
+            name: "Medium",
+            data: [
+              2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+              2, 2, 2, 2, 2, 2, 2,
+            ],
+          },
+          {
+            name: "Inflow",
+            type: "line",
+            data: [
+              1.3, 1.2, 1.1, 1.45, 1.44, 1.65, 1.3, 1.22, 1.44, 1.11, 1.33,
+              1.32, 1.67, 1.23, 1.345, 1.76, 1.3, 1.34, 1.4, 1.44, 1, 1.56,
+              1.45, 1.76, 1.12, 1.44, 1.12, 1.33, 1.21,
+            ],
+            marker: {
+              enabled: true,
+            },
+          },
+        ],
+      }));
+      setOptionData2((previousOptions) => ({
+        ...previousOptions,
+        xAxis: {
+          categories: resDataReservoir.date,
+        },
+        series: [
+          {
+            name: "TBL (top bound level)",
+            data: resDataReservoir.top_boundary_level,
+          },
+          {
+            name: "HFL (high flood level)",
+            data: resDataReservoir.high_boundary_level,
+          },
+          {
+            name: "FTL (full tank level)",
+            data: resDataReservoir.full_tank_level,
+          },
+        ],
+      }));
+    }
+  }, [date_range, resDataReservoir]);
+
   return (
-    <Row>
-      <Col>
-        <Card>
+    <Row className="mt-3">
+      <Col xl={6} className="px-0">
+        <Card className="m-0 p-0">
           <CardHeader className="p-1">
-            <p className="fs-3" style={{ fontWeight: "500" }}>
-              Projected Report
-            </p>
+            <p className="fs-3 fw-semibold mx-2">Projected Report</p>
           </CardHeader>
-          <HighchartsReact options={optionsData} highcharts={Highcharts} />
+          {optionsData1 ? (
+            <HighchartsReact options={optionsData1} highcharts={Highcharts} />
+          ) : (
+            <div
+              className="text-center d-flex justify-content-center align-items-center"
+              style={{ minHeight: "300px" }}
+            >
+              <h3>Data not found</h3>
+            </div>
+          )}
         </Card>
       </Col>
-      <Col>
-        <Card>
+      <Col xl={6} className="px-2">
+        <Card className="m-0 p-0">
           <CardHeader className="p-1">
-            <p className="fs-3" style={{ fontWeight: "500" }}>
-              Reservoir condition
-            </p>
+            <p className="fs-3 fw-semibold mx-2">Reservoir Condition</p>
           </CardHeader>
-          <HighchartsReact options={optionsData2} highcharts={Highcharts} />
+          {resDataReservoir ? (
+            <HighchartsReact options={optionsData2} highcharts={Highcharts} />
+          ) : (
+            <div>
+              <div
+                className="text-center d-flex justify-content-center align-items-center"
+                style={{ minHeight: "400px" }}
+              >
+                <h3>Data not found</h3>
+              </div>
+            </div>
+          )}
         </Card>
       </Col>
     </Row>

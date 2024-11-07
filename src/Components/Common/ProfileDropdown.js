@@ -10,7 +10,7 @@ import { createSelector } from "reselect";
 import { useSelector } from "react-redux";
 
 //import images
-import avatar1 from "../../assets/images/users/avatar-1.jpg";
+import avatar1 from "../../assets/images/users/avatar_pro.png";
 
 const ProfileDropdown = () => {
   const profiledropdownData = createSelector(
@@ -65,7 +65,7 @@ const ProfileDropdown = () => {
                 {"Manoj"}
               </span>
               <span className="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">
-                Administrator
+                Power Plant Operator
               </span>
             </span>
           </span>

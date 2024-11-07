@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SimpleBar from "simplebar-react";
 //import logo
@@ -13,6 +13,7 @@ import { Button, Container, Row } from "reactstrap";
 import HorizontalLayout from "./HorizontalLayout";
 import Flatpickr from "react-flatpickr";
 import { toast, ToastContainer } from "react-toastify";
+import { DataContext } from "./dataContext";
 
 const Sidebar = ({ layoutType }) => {
   useEffect(() => {
@@ -23,12 +24,15 @@ const Sidebar = ({ layoutType }) => {
       });
     }
   });
-
+  const { setDate_range } = useContext(DataContext);
   const today = new Date();
 
   const [dateRange, setDateRange] = useState([
-    today,
-    new Date(today.getTime() - 15 * 24 * 60 * 60 * 1000),
+    // today,
+    // new Date(today.getTime() - 15 * 24 * 60 * 60 * 1000),
+
+    new Date("2023-01-01"),
+    new Date("2023-01-15"),
   ]);
 
   const handleDateChange = (selectedDates) => {
@@ -36,23 +40,49 @@ const Sidebar = ({ layoutType }) => {
       const [startDate, endDate] = selectedDates;
       const differenceInTime = endDate.getTime() - startDate.getTime();
       const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-
       if (differenceInDays > 15) {
-        alert("You can only select a maximum of 15 days difference.");
+        toast.error("Please select a range of 15 days or less");
         const newEndDate = new Date(
           startDate.getTime() + 15 * 24 * 60 * 60 * 1000
         );
         setDateRange([startDate, newEndDate]);
-        console.log("Selected Range:", [startDate, newEndDate]);
       } else {
         setDateRange(selectedDates);
-        console.log("Selected Range:", selectedDates);
       }
     } else {
       setDateRange(selectedDates);
-      console.log("Selected Range:", selectedDates);
     }
   };
+
+  const formateDate = (date) => {
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate;
+  };
+
+  const dateFilter = async () => {
+    if (dateRange.length === 2) {
+      const start_date = formateDate(new Date(dateRange[0]));
+      const end_date = formateDate(new Date(dateRange[1]));
+      if (start_date == end_date) {
+        toast.warning("Please select date in range");
+      } else if (start_date && end_date) {
+        const date_range = { start_date, end_date };
+        setDate_range(date_range);
+      } else {
+        console.error("Fetched data is null or undefined");
+      }
+    } else {
+      toast.error("Please select Date");
+    }
+  };
+
+  useEffect(() => {
+    dateFilter();
+  }, []);
+
   const addEventListenerOnSmHoverMenu = () => {
     if (
       document.documentElement.getAttribute("data-sidebar-size") === "sm-hover"
@@ -113,29 +143,44 @@ const Sidebar = ({ layoutType }) => {
                 <div className="d-flex">
                   {" "}
                   <HorizontalLayout />
-                </div>
-                <Row className="float-right g-3 mb-0 align-items-center">
-                  <div className="col-sm-auto">
-                    <div className="input-group">
-                      <Flatpickr
-                        className="form-control border-0 dash-filter-picker shadow"
-                        options={{
-                          mode: "range",
-                          dateFormat: "d M, Y",
-                          maxDate: today,
-                        }}
-                        value={dateRange}
-                        onChange={handleDateChange}
-                      />
-                      <div className="input-group-text bg-primary border-primary text-white">
-                        <i className="ri-calendar-2-line"></i>
+                  <div className="date">
+                    <Row className="float-right g-3 mb-0 align-items-center">
+                      <div className="col-sm-auto">
+                        <div className="input-group">
+                          <Flatpickr
+                            className="form-control border-0 dash-filter-picker shadow"
+                            options={{
+                              mode: "range",
+                              dateFormat: "d M, Y",
+                              maxDate: new Date("2025-01-01"),
+                            }}
+                            value={dateRange}
+                            onChange={handleDateChange}
+                          />
+                          <div className="input-group-text bg-primary border-primary text-white">
+                            <i className="ri-calendar-2-line"></i>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                      <div className="col-sm-auto d-flex justify-content-center aling-item-center gap-2 p-1">
+                        <Button onClick={dateFilter}>Search</Button>
+                        <Button
+                          color="primary"
+                          onClick={() =>
+                            setDateRange([
+                              today,
+                              new Date(
+                                today.getTime() + 15 * 24 * 60 * 60 * 1000
+                              ),
+                            ])
+                          }
+                        >
+                          Clear
+                        </Button>
+                      </div>
+                    </Row>
                   </div>
-                  <div className="col-sm-auto">
-                    <Button>Search</Button>
-                  </div>
-                </Row>
+                </div>
               </ul>
             </Container>
           </div>

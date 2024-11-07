@@ -211,104 +211,106 @@ const Table = () => {
   const componentRef = React.useRef();
 
   return (
-    <div className="py-3">
-      <div className="bg-white border rounded">
-        <Card>
-          <Row className="align-items-center d-flex p-2">
-            <Col className="fs-3" style={{ fontWeight: "500" }}>
-              Weather Forecast
-            </Col>
-
-            <Col className="d-flex gap-3">
-              <input
-                placeholder="Search here..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="form-control search bg-light border-light"
-              />
-              <button
-                className="btn btn-success py-1"
-                onClick={() =>
-                  printJS({ printable: componentRef.current, type: "html" })
-                }
-              >
-                <i className="fa fa-print"></i> Print
-              </button>
-            </Col>
-          </Row>
-          <hr />
-
-          <div className="table-responsive" ref={componentRef}>
-            <table className="table table-bordered table-hover">
-              <thead className="table-light">
-                <tr>
-                  <th
-                    className="fw-medium text-center"
-                    rowSpan="2"
-                    style={{ width: "140px" }}
-                  >
-                    Date & Time
-                  </th>
-                  <th className="fw-medium text-center" rowSpan="2">
-                    Precipitation (mm)
-                  </th>
-                  <th className="fw-medium text-center" rowSpan="2">
-                    Snowpack Depth (cm)
-                  </th>
-                  <th className="fw-medium text-center" rowSpan="2">
-                    Water Levels (m)
-                  </th>
-                  <th className="fw-medium text-center" rowSpan="2">
-                    Humidity (%)
-                  </th>
-                  <th className="fw-medium text-center" rowSpan="2">
-                    Temperature (°C)
-                  </th>
-                  <th className="fw-medium text-center" rowSpan="2">
-                    Wind Direction (°)
-                  </th>
-                  <th className="fw-medium text-center" colSpan="2">
-                    Actual
-                  </th>
-                  <th className="fw-medium text-center" colSpan="2">
-                    Projected
-                  </th>
-                </tr>
-                <tr>
-                  <th className="fw-medium">Inflow (m³/s)</th>
-                  <th className="fw-medium">Power Generation (mw)</th>
-                  <th className="fw-medium">Inflow (m³/s)</th>
-                  <th className="fw-medium">Power Generation Projected (mw)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentRows.length > 0 ? (
-                  currentRows.map((row, index) => (
-                    <tr key={index}>
-                      <td className="text-center">{row.dt}</td>
-                      <td className="text-center">{row.precipitionActual}</td>
-                      <td className="text-center">{row.sdActual}</td>
-                      <td className="text-center">{row.wlActual}</td>
-                      <td className="text-center">{row.humidity}</td>
-                      <td className="text-center">{row.temperature}</td>
-                      <td className="text-center">{row.windDirection}</td>
-                      <td className="text-center">{row.inflowActual}</td>
-                      <td className="text-center">{row.powerAl}</td>
-                      <td className="text-center">{row.inflowForcasted}</td>
-                      <td className="text-center">{row.powerFr}</td>
-                    </tr>
-                  ))
-                ) : (
+    <Row className="mt-4">
+      <Card>
+        <Row className="card-header align-items-center d-flex p-1">
+          <Col>
+            <p className="fs-3 fw-semibold">Weather Forecast Table</p>
+          </Col>
+        </Row>
+        <Row>
+          <Card className="">
+            <Row className="align-items-center d-flex py-1">
+              <Col className="d-flex gap-3">
+                <input
+                  placeholder="Search here..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="form-control search bg-light border-light"
+                />
+                <button
+                  className="btn btn-success"
+                  onClick={() =>
+                    printJS({ printable: componentRef.current, type: "html" })
+                  }
+                >
+                  <i className="fa fa-print"></i> Print
+                </button>
+              </Col>
+            </Row>
+            <div className="table-responsive mt-2" ref={componentRef}>
+              <table className="table table-bordered table-hover">
+                <thead className="table-light">
                   <tr>
-                    <td colSpan={11} className="text-center">
-                      No data found
-                    </td>
+                    <th
+                      className="fw-medium text-center"
+                      rowSpan="2"
+                      style={{ width: "180px" }}
+                    >
+                      Date & Time
+                    </th>
+                    <th className="fw-medium text-center" rowSpan="2">
+                      Precipitation (mm)
+                    </th>
+                    <th className="fw-medium text-center" rowSpan="2">
+                      Snowpack Depth (cm)
+                    </th>
+                    <th className="fw-medium text-center" rowSpan="2">
+                      Water Levels (m)
+                    </th>
+                    <th className="fw-medium text-center" rowSpan="2">
+                      Humidity (%)
+                    </th>
+                    <th className="fw-medium text-center" rowSpan="2">
+                      Temperature (°C)
+                    </th>
+                    <th className="fw-medium text-center" rowSpan="2">
+                      Wind Direction (°)
+                    </th>
+                    <th className="fw-medium text-center" colSpan="2">
+                      Actual
+                    </th>
+                    <th className="fw-medium text-center" colSpan="2">
+                      Projected
+                    </th>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-          {/* <div className="d-flex justify-content-between p-3">
+                  <tr>
+                    <th className="fw-medium">Inflow (m³/s)</th>
+                    <th className="fw-medium">Power Generation (mw)</th>
+                    <th className="fw-medium">Inflow (m³/s)</th>
+                    <th className="fw-medium">
+                      Power Generation Projected (mw)
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentRows.length > 0 ? (
+                    currentRows.map((row, index) => (
+                      <tr key={index}>
+                        <td className="text-center">{row.dt}</td>
+                        <td className="text-center">{row.precipitionActual}</td>
+                        <td className="text-center">{row.sdActual}</td>
+                        <td className="text-center">{row.wlActual}</td>
+                        <td className="text-center">{row.humidity}</td>
+                        <td className="text-center">{row.temperature}</td>
+                        <td className="text-center">{row.windDirection}</td>
+                        <td className="text-center">{row.inflowActual}</td>
+                        <td className="text-center">{row.powerAl}</td>
+                        <td className="text-center">{row.inflowForcasted}</td>
+                        <td className="text-center">{row.powerFr}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={11} className="text-center">
+                        No data found
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+            {/* <div className="d-flex justify-content-between p-3">
           <button
             onClick={() => handlePageChange("prev")}
             disabled={currentPage === 0}
@@ -327,9 +329,10 @@ const Table = () => {
             Next
           </button>
         </div> */}
-        </Card>
-      </div>
-    </div>
+          </Card>
+        </Row>
+      </Card>
+    </Row>
   );
 };
 

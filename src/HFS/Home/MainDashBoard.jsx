@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import BreadCrumb from "../../Components/Common/BreadCrumb";
 import { Card, CardBody, Col, Container, Row } from "reactstrap";
 import CountUp from "react-countup";
@@ -7,16 +7,16 @@ import WeatherForecast from "./ChartSections/WeatherForecast";
 import HydrologicalInflow from "./ChartSections/HydrologicalInflow";
 import ProjectReported from "./ChartSections/ProjectReported";
 import Table from "./Table/Table";
-
-const baseurl = process.env.REACT_APP_API_BASE_URL;
+import { DataContext } from "../../Layouts/dataContext";
 
 const MainDashBoard = () => {
-  const [power_generated, setPower_generated] = useState(0);
-  const [current_inflow, setCurrent_inflow] = useState(0);
-  const [water_level, setWater_level] = useState(0);
-  const [power_generated_per, setPower_generated_per] = useState(0);
-  const [current_inflow_per, setCurrent_inflow_per] = useState(0);
-  const [water_level_per, setWater_level_per] = useState(0);
+  const [power_generated, setPower_generated] = useState(320);
+  const [current_inflow, setCurrent_inflow] = useState(213);
+  const [water_level, setWater_level] = useState(15);
+  const [power_generated_per, setPower_generated_per] = useState(16.24);
+  const [current_inflow_per, setCurrent_inflow_per] = useState(-3.57);
+  const [water_level_per, setWater_level_per] = useState(29.08);
+  const { date_range } = useContext(DataContext);
 
   const counterWidgets = [
     {
@@ -60,25 +60,23 @@ const MainDashBoard = () => {
     },
   ];
 
-  const fetchCounterData = async () => {
-    try {
-      const res = await fetch(`${baseurl}counter`);
-      const jsonResult = await res.json();
-
-      setPower_generated(jsonResult[0].power_generated);
-      setPower_generated_per(jsonResult[0].power_generated_per);
-      setCurrent_inflow(jsonResult[1].current_inflow);
-      setCurrent_inflow_per(jsonResult[1].current_inflow_per);
-      setWater_level(jsonResult[2].water_level);
-      setWater_level_per(jsonResult[2].water_level_per);
-    } catch (error) {
-      console.log("error in project", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchCounterData();
-  }, []);
+  // useEffect(() => {
+  //   if (data && Array.isArray(data.counter) && data.counter.length > 0) {
+  //     setPower_generated(data.counter[0]?.power_generated || 0);
+  //     setPower_generated_per(data.counter[0]?.power_generated_per || 0);
+  //     setCurrent_inflow(data.counter[1]?.current_inflow || 0);
+  //     setCurrent_inflow_per(data.counter[1]?.current_inflow_per || 0);
+  //     setWater_level(data.counter[2]?.water_level || 0);
+  //     setWater_level_per(data.counter[2]?.water_level_per || 0);
+  //   } else {
+  //     setPower_generated(0);
+  //     setPower_generated_per(0);
+  //     setCurrent_inflow(0);
+  //     setCurrent_inflow_per(0);
+  //     setWater_level(0);
+  //     setWater_level_per(0);
+  //   }
+  // }, [data]);
 
   return (
     <React.Fragment>

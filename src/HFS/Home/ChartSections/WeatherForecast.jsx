@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsWindbarb from "highcharts/modules/windbarb";
 import HighchartsMore from "highcharts/highcharts-more";
 import { Card, CardBody, Col, Row } from "reactstrap";
+import { DataContext } from "../../../Layouts/dataContext";
 
 HighchartsMore(Highcharts);
 HighchartsWindbarb(Highcharts);
@@ -579,6 +580,18 @@ class Meteogram {
 
 const WeatherForecast = () => {
   const containerRef = useRef(null);
+  const { data } = useContext(DataContext);
+  const [weatherData, setWeatherData] = useState({});
+  // useEffect(() => {
+  //   if (data) {
+  //     setWeatherData(data.weather_forecast);
+  //     try {
+  //       new Meteogram(weatherData, containerRef.current);
+  //     } catch (error) {
+  //       console.error("Failed loading data:", error);
+  //     }
+  //   }
+  // }, [data, weatherData]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -590,6 +603,7 @@ const WeatherForecast = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const json = await response.json();
+
         new Meteogram(json, containerRef.current);
       } catch (error) {
         console.error("Failed loading data:", error);
@@ -604,9 +618,7 @@ const WeatherForecast = () => {
       <Card>
         <Row className="card-header align-items-center d-flex p-1">
           <Col>
-            <p className="fs-3" style={{ fontWeight: "500" }}>
-              Weather Forecast
-            </p>
+            <p className="fs-3 fw-semibold">Weather Forecast</p>
           </Col>
         </Row>
 

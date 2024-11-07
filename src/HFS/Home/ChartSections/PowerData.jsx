@@ -1,30 +1,33 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { Button, Card, CardBody, Col, Container, Row } from "reactstrap";
+import React, { useEffect, useState, useContext } from "react";
+import { Button, Card, CardBody, Col, Row } from "reactstrap";
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
-
-const baseurl = process.env.REACT_APP_API_BASE_URL;
+import { DataContext } from "../../../Layouts/dataContext";
+import axios from "axios";
+const baseurl1 = process.env.REACT_APP_API_BASE_URL_1;
 
 const PowerData = () => {
-  const [condition, setCondition] = useState("hourly");
+  const [condition, setCondition] = useState("daily");
   const [dataSeries, setDataSeries] = useState({});
   const [categories, setCategories] = useState({});
   const [chartOptions, setChartOptions] = useState({});
+  const { date_range } = useContext(DataContext);
 
-  const fetchCounterData = useCallback(async () => {
+  const getData = async (date_range) => {
     try {
-      const res = await fetch(`${baseurl}powerdata_overview`);
-      const jsonResult = await res.json();
-      setCategories(jsonResult.categories);
-      setDataSeries(jsonResult.data_series);
+      const res = await axios.post(`${baseurl1}historical-data/`, {
+        station_id: 1,
+        start_date: date_range.start_date,
+        end_date: date_range.end_date,
+      });
+      const formatedData = res || [];
+      setCategories(formatedData?.categories || {});
+      setDataSeries(formatedData?.data_series || {});
     } catch (error) {
-      console.error("Error fetching data:", error);
+      setDataSeries({});
+      console.error("Error in fetching data:", error);
     }
-  }, []);
-
-  useEffect(() => {
-    fetchCounterData();
-  }, [fetchCounterData]);
+  };
 
   useEffect(() => {
     const options = {
@@ -35,7 +38,7 @@ const PowerData = () => {
       yAxis: [
         {
           labels: {
-            format: "{value} MW",
+            format: "{value} GWh",
             style: { color: Highcharts.getOptions().colors[1] },
           },
           title: {
@@ -47,7 +50,7 @@ const PowerData = () => {
         {
           gridLineWidth: 0,
           title: { text: "PROJECTED POWER", style: { color: "#00E272" } },
-          labels: { format: "{value} MW", style: { color: "#00E272" } },
+          labels: { format: "{value} GWh", style: { color: "#00E272" } },
         },
         {
           gridLineWidth: 0,
@@ -64,7 +67,7 @@ const PowerData = () => {
           color: "#efefef",
           yAxis: 0,
           data: dataSeries[condition]?.current_power || [],
-          tooltip: { valueSuffix: " MW" },
+          tooltip: { valueSuffix: " GWh" },
         },
         {
           name: "PROJECTED POWER",
@@ -72,7 +75,7 @@ const PowerData = () => {
           color: "#00E272",
           yAxis: 1,
           data: dataSeries[condition]?.projected_power || [],
-          tooltip: { valueSuffix: " MW" },
+          tooltip: { valueSuffix: " GWh" },
         },
         {
           name: "INFLOW",
@@ -88,15 +91,21 @@ const PowerData = () => {
     setChartOptions(options);
   }, [condition, dataSeries, categories]);
 
+  useEffect(() => {
+    if (date_range) {
+      getData(date_range);
+    }
+  }, [date_range]);
+
   return (
     <Row>
       <Card>
         <Row className="card-header align-items-center d-flex p-1">
           <Col>
-            <p className="fs-3 fw-semibold">Power Data Overview</p>
+            <p className="fs-3 fw-semibold">Power Generation Overview</p>
           </Col>
           <Col md={3} className="d-flex justify-content-around">
-            {["hourly", "daily", "weekly"].map((type) => (
+            {["hourly", "daily"].map((type) => (
               <Button
                 key={type}
                 onClick={() => setCondition(type)}
@@ -110,7 +119,16 @@ const PowerData = () => {
           </Col>
         </Row>
         <CardBody>
-          <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+          {Object.keys(dataSeries).length !== 0 ? (
+            <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+          ) : (
+            <div
+              className="text-center d-flex justify-content-center align-items-center"
+              style={{ minHeight: "400px" }}
+            >
+              <h3>Data not found</h3>
+            </div>
+          )}
         </CardBody>
       </Card>
     </Row>

@@ -25,11 +25,7 @@ import side_image from "../../assets/images/login_image.jpg";
 import { createSelector } from "reselect";
 import { ToastContainer, toast } from "react-toastify";
 import { RefreshCcw } from "feather-icons-react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation, EffectFlip, Autoplay } from "swiper/modules";
-import dam_1 from "../../assets/images/dam_img.jpg";
-import dam_2 from "../../assets/images/dam_image2.png";
-import Slidewithcaption from "../BaseUi/UiCarousel/CarouselTypes/slidewithcaption";
+import Slideshow from "./Slideshow";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -103,55 +99,17 @@ const Login = (props) => {
   return (
     <React.Fragment>
       <ToastContainer />
-      <div className="login-sec">
+      <div className="">
         <div className="row m-0">
-          <div className="col-md-8 p-4">
-            {/* <Swiper
-              effect={"flip"}
-              grabCursor={true}
-              pagination={{ clickable: true }}
-              navigation={true}
-              modules={[EffectFlip, Pagination, Navigation, Autoplay]}
-              loop={true}
-              autoplay={{ delay: 2500, disableOnInteraction: false }}
-              className="mySwiper effect-flip-swiper rounded"
-            >
-              <div className="swiper-wrapper">
-                <SwiperSlide>
-                  <img
-                    src={side_image}
-                    className="w-100 rounded"
-                    style={{ objectFit: "cover" }}
-                    alt=""
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src={dam_1}
-                    alt=""
-                    className="w-100 rounded"
-                    style={{ objectFit: "cover" }}
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src={dam_2}
-                    alt=""
-                    className="w-100 rounded"
-                    style={{ objectFit: "cover" }}
-                  />
-                </SwiperSlide>
-              </div>
-            </Swiper> */}
+          <div className="col-md-8">
+            <Slideshow />
 
-            {/* <Slidewithcaption /> */}
-
-            <img
+            {/* <img
               alt="side view"
               src={side_image}
               className="w-100 vh-100"
               style={{ objectFit: "cover" }}
-            />
+            /> */}
           </div>
           <div className="col-md-4 d-flex align-items-center px-0">
             <div className="bg-white vh-100 px-2 w-100 pt-4">
