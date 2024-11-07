@@ -83,11 +83,10 @@ const MainDashBoard = () => {
       <div className="page-content">
         <Container fluid>
           <BreadCrumb title="DashBoard" />
-
           <Row>
             {counterWidgets.map((item) => (
               <Col xl={4} md={6} key={item.id}>
-                <Card className="card-animate">
+                <Card className="card-animate cursor-pointer">
                   <CardBody>
                     <div className="d-flex align-items-center">
                       <div className="flex-grow-1 overflow-hidden">

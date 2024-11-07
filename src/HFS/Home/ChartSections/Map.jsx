@@ -20,66 +20,72 @@ const Map = () => {
       try {
         //const res = await axios.get(`${baseurl}date_basedData`);
 
-        const res = {
-          bhutan_map: {
-            series: [
-              {
-                type: "map",
-                mapData: {
-                  type: "FeatureCollection",
-                  features: [
-                    {
-                      type: "Feature",
-                      geometry: {
-                        type: "Polygon",
-                        coordinates: [
-                          [
-                            [88.8142, 27.1805],
-                            [89.4657, 26.7194],
-                            [89.7445, 26.8757],
-                            [90.5857, 26.8074],
-                            [91.2175, 26.8086],
-                            [91.6966, 27.7714],
-                            [91.8728, 27.9196],
-                            [92.1037, 28.0226],
-                            [91.9519, 28.3084],
-                            [91.2479, 28.4311],
-                            [90.7305, 28.0649],
-                            [90.3702, 28.0321],
-                            [89.7445, 27.7266],
-                            [89.382, 27.926],
-                            [88.8142, 27.1805],
-                          ],
-                        ],
-                      },
-                      properties: {
-                        name: "Chhukha catchment",
-                        "iso-a2": "BT",
-                      },
-                    },
-                  ],
-                },
-                data: [
+        setOptions({
+          title: {
+            text: "",
+          },
+          credits: {
+            enabled: false,
+          },
+
+          series: [
+            {
+              name: "Catchment Area",
+              type: "map",
+              mapData: {
+                type: "FeatureCollection",
+                features: [
                   {
-                    name: "Chhukha catchment",
-                    "iso-a2": "BT",
-                    value: 1,
+                    type: "Feature",
+                    geometry: {
+                      type: "Polygon",
+                      coordinates: [
+                        [
+                          [88.8142, 27.1805],
+                          [89.4657, 26.7194],
+                          [89.7445, 26.8757],
+                          [90.5857, 26.8074],
+                          [91.2175, 26.8086],
+                          [91.6966, 27.7714],
+                          [91.8728, 27.9196],
+                          [92.1037, 28.0226],
+                          [91.9519, 28.3084],
+                          [91.2479, 28.4311],
+                          [90.7305, 28.0649],
+                          [90.3702, 28.0321],
+                          [89.7445, 27.7266],
+                          [89.382, 27.926],
+                          [88.8142, 27.1805],
+                        ],
+                      ],
+                    },
+                    properties: {
+                      name: "Chhukha catchment",
+                      "iso-a2": "BT",
+                    },
                   },
                 ],
-                joinBy: ["iso-a2", "iso-a2"],
-                states: {
-                  hover: {
-                    color: "#3DEAAF",
-                  },
+              },
+              data: [
+                {
+                  name: "Chhukha catchment",
+                  "iso-a2": "BT",
+                  value: 1,
                 },
-                tooltip: {
-                  pointFormat: "<b>{point.name}</b>",
-                  followPointer: true,
+              ],
+              joinBy: ["iso-a2", "iso-a2"],
+              states: {
+                hover: {
+                  color: "#3DEAAF",
                 },
               },
-            ],
-          },
-        };
+              tooltip: {
+                pointFormat: "<b>{point.name}</b>",
+                followPointer: true,
+              },
+            },
+          ],
+        });
 
         if (res && res.bhutan_map) {
           setData(res.bhutan_map);
@@ -90,36 +96,6 @@ const Map = () => {
     };
     getData();
   }, []);
-
-  const [chartOptions, setChartOptions] = useState({
-    chart: {
-      map: "custom/world",
-    },
-    title: {
-      text: "",
-    },
-    credits: {
-      enabled: false,
-    },
-    mapNavigation: {
-      enabled: false,
-    },
-    series: [],
-    legend: {
-      enabled: false,
-    },
-  });
-
-  useEffect(() => {
-    if (data) {
-      setOptions((prevOptions) => {
-        return {
-          ...prevOptions,
-          series: data?.series || [],
-        };
-      });
-    }
-  }, [data]);
 
   // const [options, setOptions] = useState(null);
 
