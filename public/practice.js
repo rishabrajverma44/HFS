@@ -50,16 +50,43 @@
 // };
 // console.log(result() ? "palindrome" : "not palindrome");
 
-let arr = [
-  [2, 3, 3],
-  [4, 1, 2],
-];
+// let arr = [
+//   [2, 3, 3],
+//   [4, 1, 2],
+// ];
 
-let newArr = [];
-for (let i = 0; i < arr.length; i++) {
-  newArr[i] = [];
-  for (let j = 0; j <= arr.length; j++) {
-    newArr[i].push(arr[i][j]);
-  }
-}
-console.log(newArr);
+// let newArr = [];
+// for (let i = 0; i < arr.length; i++) {
+//   newArr[i] = [];
+//   for (let j = 0; j <= arr.length; j++) {
+//     newArr[i].push(arr[i][j]);
+//   }
+// }
+// console.log(newArr);
+
+// const arr = [
+//   1, 2, 2, 2, 2, 3, 3, 3, 2, 2, 2, 2, 4, 5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 6, 7,
+// ];
+// let maxCount = 0;
+// let count = 0;
+// let place = 0;
+// for (let i = 0; i < arr.length; i++) {
+//   if (arr[i] === arr[i + 1]) {
+//     count++;
+//   } else {
+//     count = 0;
+//   }
+//   if (count > maxCount) {
+//     maxCount = count;
+//     place = i;
+//   }
+// }
+// console.log("max consecutive number", arr[place]);
+
+// const arr = [1, 2, 3, 7, 8];
+// const rotate = 3;
+// const rotatedArr = arr.splice(rotate).concat(arr);
+// console.log(rotatedArr);
+
+const arr = [1, 2, 3, 4, 5, 6, 7];
+console.log(arr);

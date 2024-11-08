@@ -97,116 +97,6 @@ const Map = () => {
     getData();
   }, []);
 
-  // const [options, setOptions] = useState(null);
-
-  // useEffect(() => {
-  //   const fetchMapData = async () => {
-  //     const geojson = await fetch("http://localhost:4000/bhutan").then(
-  //       (response) => response.json()
-  //     );
-
-  //     // Prepare the geojson
-  //     const regions = Highcharts.geojson(geojson, "map");
-  //     const rivers = Highcharts.geojson(geojson, "mapline");
-  //     const cities = Highcharts.geojson(geojson, "mappoint");
-
-  //     // Customize city labels as needed
-  //     const specialCityLabels = {
-  //       Thimphu: { align: "right", y: -5 },
-  //       Paro: { y: 5 },
-  //       Punakha: { y: -5 },
-  //       // Add any additional Bhutan cities here
-  //     };
-
-  //     // Customize region labels and positioning
-  //     regions.forEach((region) => {
-  //       if (region.properties.shapeid === "someSpecificID") {
-  //         region.dataLabels = { enabled: false }; // Disable label for specific region
-  //       }
-  //       if (region.properties.shapeid === "anotherSpecificID") {
-  //         region.dataLabels = { style: { color: "#333333" } }; // Change color for specific region
-  //       }
-  //       // Adjust positioning if needed, similar to middleY in original
-  //       if (region.properties.shapeid === "yetAnotherID") {
-  //         region.middleY = 0.3;
-  //       }
-  //     });
-
-  //     cities.forEach((city) => {
-  //       if (specialCityLabels[city.name]) {
-  //         city.dataLabels = specialCityLabels[city.name];
-  //       }
-  //     });
-
-  //     setOptions({
-  //       chart: {
-  //         map: geojson,
-  //       },
-  //       title: {
-  //         text: "Bhutan Map with Multiple Geometry Types",
-  //       },
-  //       accessibility: {
-  //         point: {
-  //           valueDescriptionFormat: "{xDescription}.",
-  //         },
-  //         description:
-  //           "Map of Bhutan, showing regions, rivers, and cities with Highcharts Maps.",
-  //       },
-  //       mapNavigation: {
-  //         enabled: true,
-  //         buttonOptions: { verticalAlign: "bottom" },
-  //       },
-  //       series: [
-  //         {
-  //           name: "Regions",
-  //           data: regions,
-  //           color: Highcharts.color(Highcharts.getOptions().colors[2])
-  //             .setOpacity(0.75)
-  //             .get(),
-  //           states: {
-  //             hover: { color: Highcharts.getOptions().colors[4] },
-  //           },
-  //           dataLabels: {
-  //             enabled: true,
-  //             format: "{point.properties.shape1}", // Use region name property
-  //             style: {
-  //               width: "80px",
-  //               textTransform: "uppercase",
-  //               fontWeight: "normal",
-  //               textOutline: "none",
-  //               color: "#888",
-  //             },
-  //           },
-  //           tooltip: { pointFormat: "{point.properties.shape1}" },
-  //         },
-  //         {
-  //           name: "Rivers",
-  //           type: "mapline",
-  //           data: rivers,
-  //           states: { hover: { lineWidth: 3 } },
-  //           color: Highcharts.getOptions().colors[0],
-  //           tooltip: { pointFormat: "{point.properties.NAME}" },
-  //         },
-  //         {
-  //           name: "Cities",
-  //           type: "mappoint",
-  //           data: cities,
-  //           color: "black",
-  //           marker: { radius: 2 },
-  //           dataLabels: {
-  //             align: "left",
-  //             verticalAlign: "middle",
-  //           },
-  //           animation: false,
-  //           tooltip: { pointFormat: "{point.name}" },
-  //         },
-  //       ],
-  //     });
-  //   };
-
-  //   fetchMapData();
-  // }, []);
-
   return (
     <Card className="mx-2 mb-2">
       <Row className="card-header align-items-center d-flex p-1">
@@ -214,25 +104,12 @@ const Map = () => {
           <p className="fs-3 fw-semibold">Chhukha Catchment Area</p>
         </Col>
         <hr />
-        {/* <Row className="py-0">
-          {options && (
-            <HighchartsReact
-              highcharts={Highcharts}
-              constructorType={"mapChart"}
-              options={options}
-            />
-          )}
-        </Row> */}
 
-        <Row>
-          <div>
-            <HighchartsReact
-              highcharts={Highcharts}
-              constructorType={"mapChart"}
-              options={options}
-            />
-          </div>
-        </Row>
+        <HighchartsReact
+          highcharts={Highcharts}
+          constructorType={"mapChart"}
+          options={options}
+        />
       </Row>
     </Card>
   );
