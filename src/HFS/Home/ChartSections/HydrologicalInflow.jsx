@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Chart from "react-apexcharts";
-import { Card, CardBody, Col, Row } from "reactstrap";
+import { Card, CardBody, Col, Container, Row } from "reactstrap";
 import Map from "./Map";
 import { DataContext } from "../../../Layouts/dataContext";
 import axios from "axios";
@@ -154,15 +154,14 @@ const HydrologicalInflow = () => {
   // }, [data]);
 
   return (
-    <>
+    <Container fluid>
       <Row>
-        <Col xl={6} className="bg-white mb-2 card">
-          <CardBody className="p-0 m-0">
-            <Row className="card-header align-items-center d-flex p-1">
-              <Col>
-                <p className="fs-3 fw-semibold">Hydrological Inflow</p>
-              </Col>
+        <Col xl={6}>
+          <Card>
+            <Row>
+              <p className="fs-3 fw-semibold mx-4 mt-1">Hydrological Inflow</p>
             </Row>
+            <hr className="p-0 m-0" />
             {optionData.series.length !== 0 && optionData?.options ? (
               <Chart
                 options={optionData?.options}
@@ -178,14 +177,14 @@ const HydrologicalInflow = () => {
                 <h3>Data not found</h3>
               </div>
             )}
-          </CardBody>
+          </Card>
         </Col>
 
         <Col xl={6}>
           <Map />
         </Col>
       </Row>
-    </>
+    </Container>
   );
 };
 

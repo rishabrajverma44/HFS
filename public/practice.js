@@ -88,5 +88,51 @@
 // const rotatedArr = arr.splice(rotate).concat(arr);
 // console.log(rotatedArr);
 
-const arr = [1, 2, 3, 4, 5, 6, 7];
-console.log(arr);
+// const fs = require("fs");
+
+// const filePath = "C:/Users/risha/OneDrive/Desktop/HFS/public/text.doc";
+
+// // Read the file
+// fs.readFile(filePath, "utf8", (err, data) => {
+//   if (err) {
+//     console.error("Error reading file:", err);
+//   } else {
+//     console.log("File content:", data);
+
+//     fs.appendFile(filePath, "<div>hello i am added <div>", (err) => {
+//       console.log(err);
+//     });
+//   }
+// });
+
+// const object = [
+//   { nameFirst: "rishab", lastName: "verma", fullName: "rishab raj verma" },
+//   {
+//     nameFirst: "purushotam",
+//     lastName: "ram",
+//     fullName: "purushotam shree ram",
+//   },
+//   { function: () => console.log("hello") },
+// ];
+
+// for (const key in object) {
+//   if (Object.prototype.hasOwnProperty.call(object, key)) {
+//     const element = object[key];
+//     console.log(element);
+//   }
+// }
+
+// for (const element of object) {
+//   console.log("2", object);
+// }
+
+// object.forEach((element) => {
+//   console.log(element);
+// });
+
+// const numbers = [10, 15, 20, 25];
+// const result = numbers
+//   .filter((num) => num > 15)
+//   .map((num) => num * 2)
+//   .reduce((acc, num) => acc + num, 0);
+// console.log(result);

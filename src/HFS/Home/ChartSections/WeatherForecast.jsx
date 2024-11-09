@@ -457,7 +457,7 @@ class Meteogram {
       const symbolCode = nextHours && nextHours.summary.symbol_code;
       const to = node.data.next_1_hours ? x + 36e5 : x + 6 * 36e5;
 
-      if (to > pointStart + 48 * 36e5) {
+      if (to > pointStart + 24 * 2 * 36e5) {
         return;
       }
 
@@ -597,13 +597,14 @@ const WeatherForecast = () => {
     const fetchData = async () => {
       const url =
         "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=50.443530&lon=-4.420760&altitude=25";
+      //"http://localhost:4000/date_basedData";
       try {
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const json = await response.json();
-
+        //const json = (await response.json()).weather_forecast;
         new Meteogram(json, containerRef.current);
       } catch (error) {
         console.error("Failed loading data:", error);

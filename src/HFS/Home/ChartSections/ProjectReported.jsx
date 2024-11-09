@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Card, CardHeader, Col, Row } from "reactstrap";
+import { Card, CardHeader, Col, Container, Row } from "reactstrap";
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 import { DataContext } from "../../../Layouts/dataContext";
@@ -214,44 +214,50 @@ const ProjectReported = () => {
   }, [date_range, resDataReservoir, resDataProjected]);
 
   return (
-    <Row className="mt-3">
-      <Col xl={6} className="px-0">
-        <Card className="m-0 p-0 mt-2">
-          <CardHeader className="p-1">
-            <p className="fs-3 fw-semibold mx-2">Projected Report</p>
-          </CardHeader>
-          {optionsData1 ? (
-            <HighchartsReact options={optionsData1} highcharts={Highcharts} />
-          ) : (
-            <div
-              className="text-center d-flex justify-content-center align-items-center"
-              style={{ minHeight: "300px" }}
-            >
-              <h3>Data not found</h3>
-            </div>
-          )}
-        </Card>
-      </Col>
-      <Col xl={6} className="px-2">
-        <Card className="m-0 p-0 md:mt-0 mt-2">
-          <CardHeader className="p-1">
-            <p className="fs-3 fw-semibold mx-2">Reservoir Condition</p>
-          </CardHeader>
-          {resDataReservoir ? (
-            <HighchartsReact options={optionsData2} highcharts={Highcharts} />
-          ) : (
-            <div>
+    <Container fluid>
+      <Row>
+        <Col xl={6}>
+          <Card>
+            <Row>
+              <p className="fs-3 fw-semibold mx-4 mt-1">Projected Report</p>
+            </Row>
+            <hr className="p-0 m-0" />
+
+            {optionsData1 ? (
+              <HighchartsReact options={optionsData1} highcharts={Highcharts} />
+            ) : (
               <div
                 className="text-center d-flex justify-content-center align-items-center"
-                style={{ minHeight: "400px" }}
+                style={{ minHeight: "300px" }}
               >
                 <h3>Data not found</h3>
               </div>
-            </div>
-          )}
-        </Card>
-      </Col>
-    </Row>
+            )}
+          </Card>
+        </Col>
+        <Col xl={6}>
+          <Card>
+            <Row>
+              <p className="fs-3 fw-semibold mx-4 mt-1">Reservoir Condition</p>
+            </Row>
+            <hr className="p-0 m-0" />
+
+            {resDataReservoir ? (
+              <HighchartsReact options={optionsData2} highcharts={Highcharts} />
+            ) : (
+              <div>
+                <div
+                  className="text-center d-flex justify-content-center align-items-center"
+                  style={{ minHeight: "400px" }}
+                >
+                  <h3>Data not found</h3>
+                </div>
+              </div>
+            )}
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

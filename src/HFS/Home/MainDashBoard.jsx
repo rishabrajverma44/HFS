@@ -60,24 +60,6 @@ const MainDashBoard = () => {
     },
   ];
 
-  // useEffect(() => {
-  //   if (data && Array.isArray(data.counter) && data.counter.length > 0) {
-  //     setPower_generated(data.counter[0]?.power_generated || 0);
-  //     setPower_generated_per(data.counter[0]?.power_generated_per || 0);
-  //     setCurrent_inflow(data.counter[1]?.current_inflow || 0);
-  //     setCurrent_inflow_per(data.counter[1]?.current_inflow_per || 0);
-  //     setWater_level(data.counter[2]?.water_level || 0);
-  //     setWater_level_per(data.counter[2]?.water_level_per || 0);
-  //   } else {
-  //     setPower_generated(0);
-  //     setPower_generated_per(0);
-  //     setCurrent_inflow(0);
-  //     setCurrent_inflow_per(0);
-  //     setWater_level(0);
-  //     setWater_level_per(0);
-  //   }
-  // }, [data]);
-
   return (
     <React.Fragment>
       <div className="page-content">
@@ -126,13 +108,13 @@ const MainDashBoard = () => {
               </Col>
             ))}
           </Row>
-
           <PowerData />
           <WeatherForecast />
-          <HydrologicalInflow />
-          <ProjectReported />
-          <Table />
         </Container>
+
+        <HydrologicalInflow />
+        <ProjectReported />
+        <Table />
       </div>
     </React.Fragment>
   );

@@ -41,7 +41,7 @@ const Sidebar = ({ layoutType }) => {
       const differenceInTime = endDate.getTime() - startDate.getTime();
       const differenceInDays = differenceInTime / (1000 * 3600 * 24);
       if (differenceInDays > 15) {
-        toast.error("Please select a range of 15 days or less");
+        toast.error("Please select a range upto 15 days");
         const newEndDate = new Date(
           startDate.getTime() + 15 * 24 * 60 * 60 * 1000
         );
@@ -168,14 +168,16 @@ const Sidebar = ({ layoutType }) => {
                           color="primary"
                           onClick={() =>
                             setDateRange([
-                              today,
-                              new Date(
-                                today.getTime() + 15 * 24 * 60 * 60 * 1000
-                              ),
+                              // today,
+                              // new Date(
+                              //   today.getTime() + 15 * 24 * 60 * 60 * 1000
+                              // ),
+                              new Date("2023-01-01"),
+                              new Date("2023-01-15"),
                             ])
                           }
                         >
-                          Clear
+                          Reset
                         </Button>
                       </div>
                     </Row>

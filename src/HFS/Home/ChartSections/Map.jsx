@@ -98,19 +98,16 @@ const Map = () => {
   }, []);
 
   return (
-    <Card className="mx-2 mb-2">
-      <Row className="card-header align-items-center d-flex p-1">
-        <Col>
-          <p className="fs-3 fw-semibold">Chhukha Catchment Area</p>
-        </Col>
-        <hr />
-
-        <HighchartsReact
-          highcharts={Highcharts}
-          constructorType={"mapChart"}
-          options={options}
-        />
+    <Card>
+      <Row>
+        <p className="fs-3 fw-semibold mx-4 mt-1">Chhukha Catchment Area</p>
       </Row>
+      <hr className="p-0 m-0" />
+      <HighchartsReact
+        highcharts={Highcharts}
+        constructorType={"mapChart"}
+        options={options}
+      />
     </Card>
   );
 };

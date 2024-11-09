@@ -6,6 +6,7 @@ import dam1 from "../../assets/images/dam_img.jpg";
 import dam2 from "../../assets/images/dam_image2.png";
 
 const spanStyle = {
+  margin: "10px",
   padding: "20px",
   background: "rgba(0, 0, 0, 0.5)",
   color: "#ffffff",
@@ -36,7 +37,8 @@ const buttonStyle = {
   color: "rgb(10,179,156)",
   alignItems: "center",
   justifyContent: "center",
-  fontSize: "88px",
+  fontSize: "110px",
+  fontWeight: 300,
   background: "transparent",
   border: "none",
   borderRadius: "50%",
@@ -49,16 +51,6 @@ const buttonStyle = {
   top: "40%",
   transform: "translateY(-50%)",
   zIndex: 1,
-};
-
-const leftButtonStyle = {
-  ...buttonStyle,
-  left: "20px",
-};
-
-const rightButtonStyle = {
-  ...buttonStyle,
-  right: "20px",
 };
 
 const slideImages = [
@@ -83,8 +75,9 @@ const Slideshow = () => {
   return (
     <div className="slide-container" style={{ height: "100vh" }}>
       <Slide
-        prevArrow={<button style={leftButtonStyle}>&lt;</button>}
-        nextArrow={<button style={rightButtonStyle}>&gt;</button>}
+        prevArrow={<button style={buttonStyle}>&lt;</button>}
+        nextArrow={<button style={buttonStyle}>&gt;</button>}
+        duration={2000}
       >
         {slideImages.map((slideImage, index) => (
           <div key={index}>

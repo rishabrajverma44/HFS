@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import printJS from "print-js";
-import { Card, Col, Row } from "reactstrap";
+import { Card, Col, Container, Row } from "reactstrap";
 
 const Table = () => {
   const demoData = useMemo(
@@ -211,15 +211,15 @@ const Table = () => {
   const componentRef = React.useRef();
 
   return (
-    <Row className="mt-4">
-      <Card>
-        <Row className="card-header align-items-center d-flex p-1">
-          <Col>
-            <p className="fs-3 fw-semibold">Weather Forecast Table</p>
-          </Col>
-        </Row>
-        <Row>
-          <Card className="">
+    <Container fluid>
+      <Row>
+        <Card>
+          <Row className="card-header align-items-center d-flex p-1">
+            <Col>
+              <p className="fs-3 fw-semibold">Weather Forecast Table</p>
+            </Col>
+          </Row>
+          <Row>
             <Row className="align-items-center d-flex py-1">
               <Col className="d-flex gap-3">
                 <input
@@ -329,10 +329,10 @@ const Table = () => {
             Next
           </button>
         </div> */}
-          </Card>
-        </Row>
-      </Card>
-    </Row>
+          </Row>
+        </Card>
+      </Row>
+    </Container>
   );
 };
 
