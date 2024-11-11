@@ -6,7 +6,6 @@ import dam1 from "../../assets/images/dam_img.jpg";
 import dam2 from "../../assets/images/dam_image2.png";
 
 const spanStyle = {
-  margin: "10px",
   padding: "20px",
   background: "rgba(0, 0, 0, 0.5)",
   color: "#ffffff",
