@@ -89,7 +89,6 @@
 // console.log(rotatedArr);
 
 // const fs = require("fs");
-
 // const filePath = "C:/Users/risha/OneDrive/Desktop/HFS/public/text.doc";
 
 // // Read the file

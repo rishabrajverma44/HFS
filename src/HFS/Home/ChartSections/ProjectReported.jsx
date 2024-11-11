@@ -223,12 +223,12 @@ const ProjectReported = () => {
             </Row>
             <hr className="p-0 m-0" />
 
-            {optionsData1 ? (
+            {resDataProjected ? (
               <HighchartsReact options={optionsData1} highcharts={Highcharts} />
             ) : (
               <div
                 className="text-center d-flex justify-content-center align-items-center"
-                style={{ minHeight: "300px" }}
+                style={{ minHeight: "400px" }}
               >
                 <h3>Data not found</h3>
               </div>
