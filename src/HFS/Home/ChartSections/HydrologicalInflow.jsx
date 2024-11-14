@@ -12,11 +12,13 @@ const HydrologicalInflow = () => {
 
   const getData = async () => {
     try {
-      const res = await axios.post(`${baseurl1}real-time-hour/`, {
+      const res = await axios.post(`${baseurl1}hydrological_inflow/`, {
         station_id: 1,
-        date: date_range.start_date,
+        start_date: date_range.start_date,
+        end_date: date_range.end_date,
       });
 
+      const date = console.log(res.categories.daily);
       // const res = {
       //   hydrological_inflow: {
       //     series: [
