@@ -9,7 +9,7 @@ const baseurl1 = process.env.REACT_APP_API_BASE_URL_1;
 const ProjectReported = () => {
   const { date_range } = useContext(DataContext);
   const [resDataReservoir, setResDataReservoir] = useState(null);
-  const [resDataProjected, setResDataProjected] = useState(null);
+  const [resDataProjected, setResDataProjected] = useState(true);
 
   const [optionsData1, setOptionData1] = useState({
     chart: {
