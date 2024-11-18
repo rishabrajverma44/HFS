@@ -26,7 +26,7 @@ const Map = () => {
             type: "map",
           },
           title: {
-            text: "Bhutam Map",
+            text: "Bhutan Map",
           },
           credits: {
             enabled: false,
