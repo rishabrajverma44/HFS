@@ -596,7 +596,7 @@ const WeatherForecast = () => {
   useEffect(() => {
     const fetchData = async () => {
       const url =
-        "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=89.391815&lon=27.07855&altitude=40";
+        "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=27.07855&lon=89.391815&altitude=40";
       // "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=50.443530&lon=-4.420760&altitude=25";
       //"http://localhost:4000/date_basedData";
       try {
