@@ -267,7 +267,7 @@ const Table = () => {
                       Wind Direction (°)
                     </th>
                     <th className="fw-medium text-center" colSpan="2">
-                      Actual
+                      Forecast
                     </th>
                     {/* <th className="fw-medium text-center" colSpan="2">
                       Projected

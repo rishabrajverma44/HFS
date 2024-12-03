@@ -37,7 +37,10 @@ const Map = () => {
               verticalAlign: "bottom",
             },
           },
-
+          legend: {
+            verticalAlign: "top",
+            align: "center",
+          },
           series: [
             {
               type: "map",

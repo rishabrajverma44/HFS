@@ -72,6 +72,10 @@ const ProjectReported = () => {
     exporting: {
       enabled: false,
     },
+    legend: {
+      verticalAlign: "top",
+      align: "center",
+    },
   });
 
   const [optionsData2, setOptionData2] = useState({
@@ -93,9 +97,8 @@ const ProjectReported = () => {
       },
     },
     legend: {
-      layout: "horizontal",
+      verticalAlign: "top",
       align: "center",
-      verticalAlign: "bottom",
     },
     tooltip: {
       headerFormat: "<b>{point.x}</b><br/>",

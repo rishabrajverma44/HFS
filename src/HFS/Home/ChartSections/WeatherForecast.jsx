@@ -358,9 +358,9 @@ class Meteogram {
         },
       ],
       legend: {
-        enabled: true,
+        verticalAlign: "top",
+        align: "center",
       },
-
       plotOptions: {
         series: {
           pointPlacement: "between",

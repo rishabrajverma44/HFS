@@ -14,6 +14,10 @@ const HydrologicalInflow = () => {
     chart: {
       type: "areaspline",
     },
+    legend: {
+      verticalAlign: "top",
+      align: "center",
+    },
     title: {
       text: "",
     },
@@ -100,7 +104,7 @@ const HydrologicalInflow = () => {
         <Col xl={6}>
           <Card>
             <Row>
-              <p className="fs-3 fw-semibold mx-4 mt-1">Hydrological Inflow</p>
+              <p className="fs-3 fw-semibold mx-4 mt-1">Observed Inflow</p>
             </Row>
             <hr className="p-0 m-0" />
 
