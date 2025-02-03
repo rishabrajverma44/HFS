@@ -111,7 +111,7 @@ const HydrologicalInflow = () => {
             <hr className="p-0 m-0" />
 
             <HighchartsReact highcharts={Highcharts} options={hydrological} />
-          </Card>
+          </CardBody>
         </Col>
 
         <Col xl={6}>
