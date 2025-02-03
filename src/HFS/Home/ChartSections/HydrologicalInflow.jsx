@@ -101,10 +101,12 @@ const HydrologicalInflow = () => {
   return (
     <Container fluid>
       <Row>
-        <Col xl={6}>
-          <Card>
-            <Row>
-              <p className="fs-3 fw-semibold mx-4 mt-1">Observed Inflow</p>
+        <Col xl={6} className="bg-white mb-2 card">
+          <CardBody className="p-0 m-0">
+            <Row className="card-header align-items-center d-flex p-1">
+              <Col>
+                <p className="fs-3 fw-semibold">Hydrological Inflow</p>
+              </Col>
             </Row>
             <hr className="p-0 m-0" />
 

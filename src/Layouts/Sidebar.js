@@ -24,24 +24,21 @@ const Sidebar = ({ layoutType }) => {
       });
     }
   });
+
   const { setDate_range } = useContext(DataContext);
   const today = new Date();
+  const fifteenDaysAgo = new Date(today.getTime() - 15 * 24 * 60 * 60 * 1000);
 
-  const [dateRange, setDateRange] = useState([
-    // today,
-    // new Date(today.getTime() - 15 * 24 * 60 * 60 * 1000),
-
-    new Date("2023-01-01"),
-    new Date("2023-01-15"),
-  ]);
+  const [dateRange, setDateRange] = useState([fifteenDaysAgo, today]);
 
   const handleDateChange = (selectedDates) => {
     if (selectedDates.length === 2) {
       const [startDate, endDate] = selectedDates;
-      const differenceInTime = endDate.getTime() - startDate.getTime();
-      const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+      const differenceInDays =
+        (endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24);
+
       if (differenceInDays > 15) {
-        toast.error("Please select a range upto 15 days");
+        toast.error("Please select a range of 15 days or less");
         const newEndDate = new Date(
           startDate.getTime() + 15 * 24 * 60 * 60 * 1000
         );
@@ -49,30 +46,21 @@ const Sidebar = ({ layoutType }) => {
       } else {
         setDateRange(selectedDates);
       }
-    } else {
-      setDateRange(selectedDates);
     }
+    setDateRange(selectedDates);
   };
 
-  const formateDate = (date) => {
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-    const formattedDate = `${year}-${month}-${day}`;
-    return formattedDate;
-  };
+  const formatDate = (date) => date.toISOString().split("T")[0];
 
-  const dateFilter = async () => {
+  const dateFilter = () => {
     if (dateRange.length === 2) {
-      const start_date = formateDate(new Date(dateRange[0]));
-      const end_date = formateDate(new Date(dateRange[1]));
-      if (start_date == end_date) {
-        toast.warning("Please select date in range");
-      } else if (start_date && end_date) {
-        const date_range = { start_date, end_date };
-        setDate_range(date_range);
+      const start_date = formatDate(dateRange[0]);
+      const end_date = formatDate(dateRange[1]);
+
+      if (start_date === end_date) {
+        toast.warning("Please select a date in range");
       } else {
-        console.error("Fetched data is null or undefined");
+        setDate_range({ start_date, end_date });
       }
     } else {
       toast.error("Please select Date");
@@ -81,7 +69,7 @@ const Sidebar = ({ layoutType }) => {
 
   useEffect(() => {
     dateFilter();
-  }, []);
+  }, [dateRange]);
 
   const addEventListenerOnSmHoverMenu = () => {
     if (
@@ -104,7 +92,7 @@ const Sidebar = ({ layoutType }) => {
   return (
     <React.Fragment>
       <ToastContainer />
-      <div className="app-menu navbar-menu">
+      <div className="app-menu navbar-menu" style={{ zIndex: "1500" }}>
         <div className="navbar-brand-box">
           <Link to="/" className="logo logo-dark">
             <span className="logo-sm">
@@ -152,7 +140,9 @@ const Sidebar = ({ layoutType }) => {
                             options={{
                               mode: "range",
                               dateFormat: "d M, Y",
-                              maxDate: new Date("2025-01-01"),
+                              maxDate: today,
+                              onClose: (selectedDates) =>
+                                handleDateChange(selectedDates),
                             }}
                             value={dateRange}
                             onChange={handleDateChange}
@@ -168,12 +158,10 @@ const Sidebar = ({ layoutType }) => {
                           color="primary"
                           onClick={() =>
                             setDateRange([
-                              // today,
-                              // new Date(
-                              //   today.getTime() + 15 * 24 * 60 * 60 * 1000
-                              // ),
-                              new Date("2023-01-01"),
-                              new Date("2023-01-15"),
+                              today,
+                              new Date(
+                                today.getTime() + 15 * 24 * 60 * 60 * 1000
+                              ),
                             ])
                           }
                         >
