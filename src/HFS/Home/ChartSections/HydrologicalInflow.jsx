@@ -160,7 +160,7 @@ const HydrologicalInflow = () => {
           <CardBody className="p-0 m-0">
             <Row className="card-header align-items-center d-flex p-1">
               <Col>
-                <p className="fs-3 fw-semibold">Hydrological Inflow</p>
+                <p className="fs-3 fw-semibold">Observed Inflow</p>
               </Col>
             </Row>
             {optionData.series.length !== 0 && optionData?.options ? (

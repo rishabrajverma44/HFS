@@ -6,7 +6,7 @@ const Table = () => {
   const demoData = useMemo(
     () => [
       {
-        dt: "07-08-2024 12:00",
+        dt: "07-08-2024",
         precipitionActual: "0.0",
         sdActual: "0.11",
         wlActual: "1.25",
@@ -22,7 +22,7 @@ const Table = () => {
         humidity: "60",
       },
       {
-        dt: "07-08-2024 12:15",
+        dt: "07-08-2024",
         precipitionActual: "0.1",
         sdActual: "0.12",
         wlActual: "1.26",
@@ -38,7 +38,7 @@ const Table = () => {
         humidity: "62",
       },
       {
-        dt: "07-08-2024 12:30",
+        dt: "07-08-2024",
         precipitionActual: "0.2",
         sdActual: "0.10",
         wlActual: "1.28",
@@ -54,7 +54,7 @@ const Table = () => {
         humidity: "65",
       },
       {
-        dt: "07-08-2024 12:45",
+        dt: "07-08-2024",
         precipitionActual: "0.3",
         sdActual: "0.09",
         wlActual: "1.30",
@@ -70,7 +70,7 @@ const Table = () => {
         humidity: "66",
       },
       {
-        dt: "07-08-2024 13:00",
+        dt: "07-08-2024",
         precipitionActual: "0.4",
         sdActual: "0.08",
         wlActual: "1.32",
@@ -86,7 +86,7 @@ const Table = () => {
         humidity: "68",
       },
       {
-        dt: "07-08-2024 13:15",
+        dt: "07-08-2024",
         precipitionActual: "0.5",
         sdActual: "0.07",
         wlActual: "1.35",
@@ -102,7 +102,7 @@ const Table = () => {
         humidity: "70",
       },
       {
-        dt: "07-08-2024 13:30",
+        dt: "07-08-2024",
         precipitionActual: "0.6",
         sdActual: "0.06",
         wlActual: "1.38",
@@ -118,7 +118,7 @@ const Table = () => {
         humidity: "72",
       },
       {
-        dt: "07-08-2024 13:45",
+        dt: "07-08-2024",
         precipitionActual: "0.7",
         sdActual: "0.05",
         wlActual: "1.40",
@@ -134,7 +134,7 @@ const Table = () => {
         humidity: "74",
       },
       {
-        dt: "07-08-2024 14:00",
+        dt: "07-08-2024",
         precipitionActual: "0.8",
         sdActual: "0.04",
         wlActual: "1.42",
@@ -150,7 +150,7 @@ const Table = () => {
         humidity: "76",
       },
       {
-        dt: "07-08-2024 14:15",
+        dt: "07-08-2024",
         precipitionActual: "0.9",
         sdActual: "0.03",
         wlActual: "1.45",
@@ -166,7 +166,7 @@ const Table = () => {
         humidity: "78",
       },
       {
-        dt: "07-08-2024 14:30",
+        dt: "07-08-2024",
         precipitionActual: "1.0",
         sdActual: "0.02",
         wlActual: "1.47",
@@ -247,13 +247,10 @@ const Table = () => {
                       rowSpan="2"
                       style={{ width: "180px" }}
                     >
-                      Date & Time
+                      Date
                     </th>
                     <th className="fw-medium text-center" rowSpan="2">
                       Precipitation (mm)
-                    </th>
-                    <th className="fw-medium text-center" rowSpan="2">
-                      Snowpack Depth (cm)
                     </th>
                     <th className="fw-medium text-center" rowSpan="2">
                       Water Levels (m)
@@ -267,20 +264,14 @@ const Table = () => {
                     <th className="fw-medium text-center" rowSpan="2">
                       Wind Direction (°)
                     </th>
+
                     <th className="fw-medium text-center" colSpan="2">
-                      Actual
-                    </th>
-                    <th className="fw-medium text-center" colSpan="2">
-                      Projected
+                      Forecast
                     </th>
                   </tr>
                   <tr>
                     <th className="fw-medium">Inflow (m³/s)</th>
                     <th className="fw-medium">Power Generation (mw)</th>
-                    <th className="fw-medium">Inflow (m³/s)</th>
-                    <th className="fw-medium">
-                      Power Generation Projected (mw)
-                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -289,13 +280,10 @@ const Table = () => {
                       <tr key={index}>
                         <td className="text-center">{row.dt}</td>
                         <td className="text-center">{row.precipitionActual}</td>
-                        <td className="text-center">{row.sdActual}</td>
                         <td className="text-center">{row.wlActual}</td>
                         <td className="text-center">{row.humidity}</td>
                         <td className="text-center">{row.temperature}</td>
                         <td className="text-center">{row.windDirection}</td>
-                        <td className="text-center">{row.inflowActual}</td>
-                        <td className="text-center">{row.powerAl}</td>
                         <td className="text-center">{row.inflowForcasted}</td>
                         <td className="text-center">{row.powerFr}</td>
                       </tr>

@@ -35,7 +35,7 @@ const MainDashBoard = () => {
     {
       id: 2,
       cardColor: "secondary",
-      label: "CURRENT INFLOW",
+      label: "OBSERVED INFLOW",
       badge: "ri-arrow-right-down-line",
       badgeClass: current_inflow_per > 0 ? "success" : "danger",
       percentage: current_inflow_per,
@@ -48,7 +48,7 @@ const MainDashBoard = () => {
     {
       id: 3,
       cardColor: "success",
-      label: "WATER LEVEL",
+      label: "RESERVOIR LEVEL",
       badge: "ri-arrow-right-up-line",
       badgeClass: water_level_per > 0 ? "success" : "danger",
       percentage: water_level_per,
