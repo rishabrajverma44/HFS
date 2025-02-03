@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import printJS from "print-js";
-import { Card, Col, Row } from "reactstrap";
+import { Card, Col, Container, Row } from "reactstrap";
 
 const Table = () => {
   const demoData = useMemo(
@@ -22,7 +22,7 @@ const Table = () => {
         humidity: "60",
       },
       {
-        dt: "07-08-2024",
+        dt: "07-08-2024 12:15",
         precipitionActual: "0.1",
         sdActual: "0.12",
         wlActual: "1.26",
@@ -38,7 +38,7 @@ const Table = () => {
         humidity: "62",
       },
       {
-        dt: "07-08-2024",
+        dt: "07-08-2024 12:30",
         precipitionActual: "0.2",
         sdActual: "0.10",
         wlActual: "1.28",
@@ -54,7 +54,7 @@ const Table = () => {
         humidity: "65",
       },
       {
-        dt: "07-08-2024",
+        dt: "07-08-2024 12:45",
         precipitionActual: "0.3",
         sdActual: "0.09",
         wlActual: "1.30",
@@ -70,7 +70,7 @@ const Table = () => {
         humidity: "66",
       },
       {
-        dt: "07-08-2024",
+        dt: "07-08-2024 13:00",
         precipitionActual: "0.4",
         sdActual: "0.08",
         wlActual: "1.32",
@@ -86,7 +86,7 @@ const Table = () => {
         humidity: "68",
       },
       {
-        dt: "07-08-2024",
+        dt: "07-08-2024 13:15",
         precipitionActual: "0.5",
         sdActual: "0.07",
         wlActual: "1.35",
@@ -102,7 +102,7 @@ const Table = () => {
         humidity: "70",
       },
       {
-        dt: "07-08-2024",
+        dt: "07-08-2024 13:30",
         precipitionActual: "0.6",
         sdActual: "0.06",
         wlActual: "1.38",
@@ -118,7 +118,7 @@ const Table = () => {
         humidity: "72",
       },
       {
-        dt: "07-08-2024",
+        dt: "07-08-2024 13:45",
         precipitionActual: "0.7",
         sdActual: "0.05",
         wlActual: "1.40",
@@ -134,7 +134,7 @@ const Table = () => {
         humidity: "74",
       },
       {
-        dt: "07-08-2024",
+        dt: "07-08-2024 14:00",
         precipitionActual: "0.8",
         sdActual: "0.04",
         wlActual: "1.42",
@@ -150,7 +150,7 @@ const Table = () => {
         humidity: "76",
       },
       {
-        dt: "07-08-2024",
+        dt: "07-08-2024 14:15",
         precipitionActual: "0.9",
         sdActual: "0.03",
         wlActual: "1.45",
@@ -166,7 +166,7 @@ const Table = () => {
         humidity: "78",
       },
       {
-        dt: "07-08-2024",
+        dt: "07-08-2024 14:30",
         precipitionActual: "1.0",
         sdActual: "0.02",
         wlActual: "1.47",
@@ -181,7 +181,6 @@ const Table = () => {
         windDirection: "280 SW",
         humidity: "80",
       },
-      // Add more data as needed
     ],
     []
   );
@@ -211,15 +210,15 @@ const Table = () => {
   const componentRef = React.useRef();
 
   return (
-    <Row className="mt-4">
-      <Card>
-        <Row className="card-header align-items-center d-flex p-1">
-          <Col>
-            <p className="fs-3 fw-semibold">Weather Forecast Table</p>
-          </Col>
-        </Row>
-        <Row>
-          <Card className="">
+    <Container fluid>
+      <Row>
+        <Card>
+          <Row className="card-header align-items-center d-flex p-1">
+            <Col>
+              <p className="fs-3 fw-semibold">Weather Forecast Table</p>
+            </Col>
+          </Row>
+          <Row>
             <Row className="align-items-center d-flex py-1">
               <Col className="d-flex gap-3">
                 <input
@@ -239,7 +238,7 @@ const Table = () => {
               </Col>
             </Row>
             <div className="table-responsive mt-2" ref={componentRef}>
-              <table className="table table-bordered table-hover">
+              <table className="table table-bordered table-hover cursor-pointer">
                 <thead className="table-light">
                   <tr>
                     <th
@@ -251,6 +250,9 @@ const Table = () => {
                     </th>
                     <th className="fw-medium text-center" rowSpan="2">
                       Precipitation (mm)
+                    </th>
+                    <th className="fw-medium text-center" rowSpan="2">
+                      Snowpack Depth (cm)
                     </th>
                     <th className="fw-medium text-center" rowSpan="2">
                       Water Levels (m)
@@ -266,12 +268,19 @@ const Table = () => {
                     </th>
 
                     <th className="fw-medium text-center" colSpan="2">
-                      Forecast
+                      Actual
+                    </th>
+                    <th className="fw-medium text-center" colSpan="2">
+                      Projected
                     </th>
                   </tr>
                   <tr>
                     <th className="fw-medium">Inflow (m³/s)</th>
                     <th className="fw-medium">Power Generation (mw)</th>
+                    <th className="fw-medium">Inflow (m³/s)</th>
+                    <th className="fw-medium">
+                      Power Generation Projected (mw)
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -280,10 +289,13 @@ const Table = () => {
                       <tr key={index}>
                         <td className="text-center">{row.dt}</td>
                         <td className="text-center">{row.precipitionActual}</td>
+                        <td className="text-center">{row.sdActual}</td>
                         <td className="text-center">{row.wlActual}</td>
                         <td className="text-center">{row.humidity}</td>
                         <td className="text-center">{row.temperature}</td>
                         <td className="text-center">{row.windDirection}</td>
+                        <td className="text-center">{row.inflowActual}</td>
+                        <td className="text-center">{row.powerAl}</td>
                         <td className="text-center">{row.inflowForcasted}</td>
                         <td className="text-center">{row.powerFr}</td>
                       </tr>
@@ -317,10 +329,10 @@ const Table = () => {
             Next
           </button>
         </div> */}
-          </Card>
-        </Row>
-      </Card>
-    </Row>
+          </Row>
+        </Card>
+      </Row>
+    </Container>
   );
 };
 

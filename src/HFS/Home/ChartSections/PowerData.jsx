@@ -38,7 +38,7 @@ const PowerData = () => {
       yAxis: [
         {
           labels: {
-            format: "{value} GWh",
+            format: "{value} MW",
             style: { color: Highcharts.getOptions().colors[1] },
           },
           title: {
@@ -50,7 +50,7 @@ const PowerData = () => {
         {
           gridLineWidth: 0,
           title: { text: "PROJECTED POWER", style: { color: "#00E272" } },
-          labels: { format: "{value} GWh", style: { color: "#00E272" } },
+          labels: { format: "{value} MW", style: { color: "#00E272" } },
         },
         {
           gridLineWidth: 0,
@@ -67,7 +67,7 @@ const PowerData = () => {
           color: "#efefef",
           yAxis: 0,
           data: dataSeries[condition]?.current_power || [],
-          tooltip: { valueSuffix: " GWh" },
+          tooltip: { valueSuffix: " MW" },
         },
         {
           name: "PROJECTED POWER",
@@ -75,7 +75,7 @@ const PowerData = () => {
           color: "#00E272",
           yAxis: 1,
           data: dataSeries[condition]?.projected_power || [],
-          tooltip: { valueSuffix: " GWh" },
+          tooltip: { valueSuffix: " MW" },
         },
         {
           name: "INFLOW",
@@ -87,6 +87,10 @@ const PowerData = () => {
           tooltip: { valueSuffix: " m³/sec" },
         },
       ],
+      legend: {
+        verticalAlign: "top",
+        align: "center",
+      },
     };
     setChartOptions(options);
   }, [condition, dataSeries, categories]);

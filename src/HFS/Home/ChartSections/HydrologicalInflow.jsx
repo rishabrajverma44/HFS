@@ -1,191 +1,124 @@
 import React, { useContext, useEffect, useState } from "react";
 import Chart from "react-apexcharts";
-import { Card, CardBody, Col, Row } from "reactstrap";
+import { Card, CardBody, Col, Container, Row } from "reactstrap";
 import Map from "./Map";
 import { DataContext } from "../../../Layouts/dataContext";
 import axios from "axios";
+import HighchartsReact from "highcharts-react-official";
+import Highcharts from "highcharts";
 const baseurl1 = process.env.REACT_APP_API_BASE_URL_1;
 
 const HydrologicalInflow = () => {
   const { date_range } = useContext(DataContext);
-  const [data, setData] = useState([]);
-
-  const getData = async () => {
-    try {
-      const res = await axios.post(`${baseurl1}real-time-hour/`, {
-        station_id: 1,
-        date: date_range.start_date,
-      });
-
-      // const res = {
-      //   hydrological_inflow: {
-      //     series: [
-      //       {
-      //         name: "Real-Time",
-      //         data: [0.033, 0.027, 0.029, 0.032, 0.035, 0.029, 0.034, 0.033],
-      //       },
-      //       {
-      //         name: "Projected",
-      //         data: [0.034, 0.028, 0.032, 0.03, 0.036, 0.03, 0.036, 0.031],
-      //       },
-      //     ],
-
-      //     xaxis: {
-      //       categories: [
-      //         "2018-09-19T01:00:00.000Z",
-      //         "2018-09-19T01:30:00.000Z",
-      //         "2018-09-19T02:30:00.000Z",
-      //         "2018-09-19T03:30:00.000Z",
-      //         "2018-09-19T04:30:00.000Z",
-      //         "2018-09-19T05:30:00.000Z",
-      //         "2018-09-19T06:30:00.000Z",
-      //         "2018-09-19T07:30:00.000Z",
-      //       ],
-      //     },
-      //   },
-      // };
-
-      if (res && res.data_in_hours) {
-        const inflowData = res.data_in_hours;
-        setOptionData((prevOptions) => ({
-          ...prevOptions,
-          series: [
-            { name: "Real-Time", data: inflowData.real_time_flow || [] },
-            { name: "Projected", data: inflowData.projected_flow || [] },
-          ],
-          options: {
-            ...prevOptions.options,
-            xaxis: {
-              ...prevOptions.options.xaxis,
-              categories: inflowData.date || [],
-            },
-          },
-        }));
-      }
-    } catch (error) {
-      setOptionData((prevOptions) => ({
-        ...prevOptions,
-        series: [],
-      }));
-    }
-  };
-
-  const [optionData, setOptionData] = useState({
-    series: [],
-    options: {
-      chart: {
-        height: 350,
-        type: "area",
+  const [hydrological, setHydrological] = useState({
+    chart: {
+      type: "areaspline",
+    },
+    legend: {
+      verticalAlign: "top",
+      align: "center",
+    },
+    title: {
+      text: "",
+    },
+    xAxis: {
+      type: "datetime",
+      categories: undefined,
+      labels: {
+        rotation: 0,
       },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        curve: "smooth",
-      },
-      xaxis: {
-        type: "datetime",
-        categories: [],
-      },
-      yaxis: {
-        min: 0.02,
-        tickAmount: 10,
-        labels: {
-          formatter: function (value) {
-            return value.toFixed(3);
-          },
-        },
-        title: {
-          text: "Discharge in m ³/s",
-          style: {
-            fontSize: "14px",
-            fontWeight: "bold",
-          },
-        },
-      },
-      tooltip: {
-        x: {
-          format: "dd/MM/yy HH:mm",
+      min: Date.parse("2018-09-19T00:00:00"),
+      max: Date.parse("2018-09-29T00:00:00"),
+    },
+    yAxis: {
+      min: 0,
+      tickAmount: 15,
+      title: {
+        text: "Discharge in m³/s",
+        style: {
+          fontSize: "14px",
+          fontWeight: "bold",
         },
       },
     },
+    tooltip: {
+      x: {
+        format: "dd/MM/yy",
+      },
+    },
+    series: [
+      {
+        name: "Real-Time",
+        color: "rgba(0,143,251, 0.8)",
+        lineWidth: 4,
+        data: [
+          [Date.parse("2018-09-19T00:00:00"), 32.7012],
+          [Date.parse("2018-09-20T00:00:00"), 33.8053],
+          [Date.parse("2018-09-21T00:00:00"), 34.2578],
+          [Date.parse("2018-09-22T00:00:00"), 30.5071],
+          [Date.parse("2018-09-23T00:00:00"), 31.7812],
+          [Date.parse("2018-09-24T00:00:00"), 33.0478],
+          [Date.parse("2018-09-25T00:00:00"), 32.4857],
+          [Date.parse("2018-09-26T00:00:00"), 33.1694],
+          [Date.parse("2018-09-27T00:00:00"), 34.1189],
+          [Date.parse("2018-09-28T00:00:00"), 30.3872],
+          [Date.parse("2018-09-29T00:00:00"), 31.7531],
+        ],
+        marker: {
+          enabled: false,
+        },
+      },
+      {
+        name: "Projected",
+        color: "rgba(0,227,150, 0.8)",
+        lineWidth: 4,
+        data: [
+          [Date.parse("2018-09-19T00:00:00"), 32.4811],
+          [Date.parse("2018-09-20T00:00:00"), 33.7512],
+          [Date.parse("2018-09-21T00:00:00"), 37.5325],
+          [Date.parse("2018-09-22T00:00:00"), 32.7289],
+          [Date.parse("2018-09-23T00:00:00"), 30.5124],
+          [Date.parse("2018-09-24T00:00:00"), 36.9981],
+          [Date.parse("2018-09-25T00:00:00"), 35.8239],
+          [Date.parse("2018-09-26T00:00:00"), 34.5462],
+          [Date.parse("2018-09-27T00:00:00"), 36.0148],
+          [Date.parse("2018-09-28T00:00:00"), 33.9854],
+          [Date.parse("2018-09-29T00:00:00"), 34.6278],
+        ],
+        marker: {
+          enabled: false,
+        },
+      },
+    ],
+    credits: {
+      enabled: false,
+    },
   });
 
-  useEffect(() => {
-    getData();
-  }, [date_range]);
-
   // useEffect(() => {
-  //   if (data) {
-  //     setOptionData({
-  //       series: data?.series,
-  //       options: {
-  //         chart: {
-  //           height: 350,
-  //           type: "area",
-  //         },
-  //         dataLabels: {
-  //           enabled: false,
-  //         },
-  //         stroke: {
-  //           curve: "smooth",
-  //         },
-  //         xaxis: {
-  //           type: "datetime",
-  //           categories: data?.xaxis.categories,
-  //         },
-  //         yaxis: {
-  //           min: 0.02,
-  //           tickAmount: 10,
-  //           labels: {
-  //             formatter: function (value) {
-  //               return value.toFixed(3);
-  //             },
-  //           },
-  //         },
-  //         tooltip: {
-  //           x: {
-  //             format: "dd/MM/yy HH:mm",
-  //           },
-  //         },
-  //       },
-  //     });
-  //   }
-  // }, [data]);
-
+  //   getData();
+  // }, [date_range]
   return (
-    <>
+    <Container fluid>
       <Row>
         <Col xl={6} className="bg-white mb-2 card">
           <CardBody className="p-0 m-0">
             <Row className="card-header align-items-center d-flex p-1">
               <Col>
-                <p className="fs-3 fw-semibold">Observed Inflow</p>
+                <p className="fs-3 fw-semibold">Hydrological Inflow</p>
               </Col>
             </Row>
-            {optionData.series.length !== 0 && optionData?.options ? (
-              <Chart
-                options={optionData?.options}
-                series={optionData?.series}
-                type="area"
-                height={400}
-              />
-            ) : (
-              <div
-                className="text-center d-flex justify-content-center align-items-center"
-                style={{ minHeight: "400px" }}
-              >
-                <h3>Data not found</h3>
-              </div>
-            )}
-          </CardBody>
+            <hr className="p-0 m-0" />
+
+            <HighchartsReact highcharts={Highcharts} options={hydrological} />
+          </Card>
         </Col>
 
         <Col xl={6}>
           <Map />
         </Col>
       </Row>
-    </>
+    </Container>
   );
 };
 
