@@ -91,7 +91,7 @@ const Sidebar = ({ layoutType }) => {
   return (
     <React.Fragment>
       <ToastContainer />
-      <div className="app-menu navbar-menu" style={{ zIndex: "1500" }}>
+      <div className="app-menu navbar-menu">
         <div className="navbar-brand-box">
           <Link to="/" className="logo logo-dark">
             <span className="logo-sm">

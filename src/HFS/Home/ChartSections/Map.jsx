@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -28,6 +28,14 @@ const onEachRiverFeature = (feature, layer) => {
 };
 
 const Map = () => {
+  useEffect(() => {
+    const leafletContainer = document.querySelector(".leaflet-container");
+    if (leafletContainer) {
+      leafletContainer.style.zIndex = "2";
+    } else {
+      console.error("leaflet-container not found!");
+    }
+  }, []);
   return (
     <Card className="mx-2 mb-2">
       <Row className="card-header align-items-center d-flex p-1">
